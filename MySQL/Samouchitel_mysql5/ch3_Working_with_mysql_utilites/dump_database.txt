@@ -1,0 +1,3 @@
+--in mysql 'bin' folder there is mysqldump tool :
+mysqldump -u root -p tempDB>tempDB.sql
+

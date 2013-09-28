@@ -1,0 +1,35 @@
+Main datatypes :
+
+Numeric data :
+TINYINT [(M)] -   -128..127
+
+INT [(M)] , INTEGER[(M)] - 4 BYTES -  -2147683648 .. 2147683648
+
+BIGINT[(M)] - 8 BYTES 
+
+DECIMAL [(M ,D)] - M+2 BYTES -- M<60 , D<30  - FOR MONEY PROCESSING
+
+
+Наближені числа :
+FLOAT 
+
+DOUBLE([M,D]) - 8 BYTES
+
+------------------------------------------------------------------------------
+STRING Data
+
+CHAR [M] 
+VARCHAR [M]  -- M<16000
+
+BLOB ,TEXT - MAX LENGHT 16000
+
+------------------------------------------------------------------------------
+DATE data
+
+DATE
+
+DATETIME -- DATE AND TIME FROM 1000 TO 9999 YEAR , FOR EXAMPLE 2005-10-14 00:23:34
+
+TIMESTAMP -- DATE AND TIME FROM 1970 TO 2038 
+
+			-- DATETIME AND TIMESTAMP HAVE THE SAME FORMAT , BUT DIFFERENT INTERNAL VIEW

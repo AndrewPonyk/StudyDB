@@ -1,0 +1,16 @@
+DECLARE
+  CURSOR EMP_CUR IS 
+  SELECT FIRST_NAME,LAST_NAME,PHONE_NUMBER
+  FROM EMPLOYEES;
+
+  emp_rec employees%ROWTYPE;
+
+BEGIN
+ 
+  FOR EMP_REC IN EMP_CUR LOOP
+      DBMS_OUTPUT.PUT_LINE( RPAD( emp_rec.FIRST_NAME||' '||emp_rec.LAST_NAME ,'20','.'  )||emp_rec.PHONE_NUMBER );    
+  END LOOP;
+  
+
+END;
+/

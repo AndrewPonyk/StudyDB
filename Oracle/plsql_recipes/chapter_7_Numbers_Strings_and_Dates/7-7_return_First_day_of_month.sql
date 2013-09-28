@@ -1,0 +1,1 @@
+SELECT  trunc(SYSDATE,'MM') FROM DUAL

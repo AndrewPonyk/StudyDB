@@ -1,0 +1,1 @@
+DECLARE var_name[,....] TYPE [DEFAULT VALUE]

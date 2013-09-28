@@ -1,0 +1,7 @@
+--DECLARE
+--END_DATE VARCHAR2(30);
+--BEGIN
+
+SELECT  cast( '22-Aug-2003' AS varchar2(30) ) FROM DUAL;
+--END;
+--/

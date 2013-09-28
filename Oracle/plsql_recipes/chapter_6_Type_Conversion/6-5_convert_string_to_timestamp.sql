@@ -1,0 +1,5 @@
+DECLARE
+BEGIN
+  NULL;
+END;
+/

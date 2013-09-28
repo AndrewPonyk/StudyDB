@@ -1,0 +1,1 @@
+select add_months(sysdate,10) from dual

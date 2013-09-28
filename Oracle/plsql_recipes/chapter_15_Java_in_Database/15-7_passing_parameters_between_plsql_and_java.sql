@@ -1,0 +1,35 @@
+--CREATE OR REPLACE PROCEDURE EMPLOYEES_PARAMETER(DEPARTMENTID IN NUMBER) AS LANGUAGE JAVA 
+--name 'Employees_parameter.getItEmps(int)';
+
+exec EMPLOYEES_PARAMETER(50);
+
+--java code
+--import java.sql.*;
+--import oracle.jdbc.*;
+--
+--public class Employees_parameter{
+--	public static void getItEmps(int departmentId){
+--		String firstName=null;
+--		String lastName=null;
+--		String email=null;
+--		try{
+--			Connection conn=DriverManager.getConnection("jdbc:default:connection:");
+--			String sql = "select first_name,last_name,email from employees where department_id=?";
+--			PreparedStatement pstmt=conn.prepareStatement(sql);
+--			pstmt.setInt(1,departmentId);
+--			ResultSet rset=pstmt.executeQuery();
+--			while(rset.next()){
+--				firstName=rset.getString(1);
+--				lastName=rset.getString(2);
+--				email=rset.getString(3);
+--				System.out.println(firstName+" "+lastName+" "+email);
+--			}
+--			pstmt.close();
+--			conn.close();
+--		}
+--		catch(SQLException e){
+--			System.err.println(e.getMessage());	
+--		}
+--	}
+--} 
+-- 

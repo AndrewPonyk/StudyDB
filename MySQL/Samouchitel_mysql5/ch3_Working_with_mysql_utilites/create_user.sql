@@ -1,0 +1,1 @@
+create user user identified by 'hello'

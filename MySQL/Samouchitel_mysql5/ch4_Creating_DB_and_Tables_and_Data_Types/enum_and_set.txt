@@ -1,0 +1,5 @@
+create table table1(
+id INT primary key ,
+f1 ENUM('y','n'),
+f2 SET ('1','2','3') -- possible values for this field  '1', '12', ''
+)

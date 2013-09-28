@@ -1,0 +1,1 @@
+!!! by default all fields in MySQL are NOT NULL

@@ -1,0 +1,9 @@
+Additional mysql utilities are in 'bin' catalog 
+myisampack - compress MyISAM tables
+mysql - console mysql client
+mysqladmin- administrative utility
+..
+mysqldump - save db as .sql files
+mysqlhotcopy - make copy of db without server shutdown
+mysqlimport - import data from text files
+mysqlshow - show info about db , tables , fields , indexes ..

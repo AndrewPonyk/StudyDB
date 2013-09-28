@@ -1,0 +1,18 @@
+DELIMITER //
+DROP PROCEDURE IF EXISTS declare_var ;
+CREATE PROCEDURE declare_var()
+outerblock:BEGIN
+	DECLARE var TINYTEXT DEFAULT 'OUTER VALUE';
+	
+	innerblock:BEGIN
+		DECLARE var TINYTEXT DEFAULT 'INNER VALUE';
+		SELECT var;
+	END innerblock;
+	
+	SELECT var,var ,var,var;
+END outerblock;
+
+/* in this procedure we have two blocks inner and outer*/
+
+
+CALL declare_var;

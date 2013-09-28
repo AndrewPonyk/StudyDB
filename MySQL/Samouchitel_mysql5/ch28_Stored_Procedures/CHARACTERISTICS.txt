@@ -1,0 +1,22 @@
+function and procedure can have CHARASTERISTIC block
+
+syntax :
+	CREATE
+    [DEFINER = { user | CURRENT_USER }]
+    PROCEDURE sp_name ([proc_parameter[,...]])
+    [characteristic ...] routine_body
+    
+    
+    
+    
+    characteristic:
+    COMMENT 'string'
+  | LANGUAGE SQL
+  | [NOT] DETERMINISTIC
+  | { CONTAINS SQL | NO SQL | READS SQL DATA | MODIFIES SQL DATA }
+  | SQL SECURITY { DEFINER | INVOKER }
+  
+  * DETERMINISTIC - mean what function return same value for same input values
+  
+  * SQL SECURITY DEFINER - the procedure will be invoked with definer privileges ,
+  * SQL SECURITY INVOKER - the procedure will be invoked with invoker privileges

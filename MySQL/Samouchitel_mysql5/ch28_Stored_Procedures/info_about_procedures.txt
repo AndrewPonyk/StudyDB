@@ -1,0 +1,22 @@
+--Procedure syntax
+CREATE PROCEDURE sp_name ( [param])
+[characteristics ...]
+routine body
+
+--Function syntax
+CREATE FUNCTION sp_name([param])
+RETURNS type
+[characteristics... ]
+routine body
+
+
+--[characteristic syntax]
+LANGUAGE SQL
+[NOT] DETERMINISTIC
+SQL SECURITY [DEFINER | INVOKER]
+COMMENT 'string'
+
+--routine body syntax
+[label:]BEGIN
+statements
+END

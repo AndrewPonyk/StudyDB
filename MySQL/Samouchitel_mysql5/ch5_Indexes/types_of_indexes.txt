@@ -1,0 +1,31 @@
+Types of indexes in MySQL 
+* Primary key
+* Usual index
+* Unique index
+* Fulltext index - special kind of index for fields of type Text , using this index we can perform fulltext search
+
+
+----
+Primary key - every table should have PK , 
+table can have only one PK
+example of creating PK:
+	CREATE TABLE CATALOGS (
+	ID_CATALOG INT(11) NOT NULL PRIMARY KEY ,
+	NAME TINYTEXT NOT NULL
+	)
+
+Primary key can contain more than one fields
+	CREATE TABLE CATALOGS (
+	ID_CATALOG INT(11) NOT NULL  ,
+	NAME TINYTEXT NOT NULL
+	PRIMARY KEY (ID_CATALOG,NAME)
+	)
+	
+----
+Indexes and Unique Indexes
+we can use keywords 'key' or 'index' to create indexes
+
+examples
+CREATE INDEX id_catalog_index ON products(id_catalog)
+
+DROP INDEX id_catalog_index on products

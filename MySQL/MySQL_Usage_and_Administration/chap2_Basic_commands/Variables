@@ -1,0 +1,14 @@
+SELECT * FROM db1.airport;
+
+set @var =2;
+
+select @var*10 as Field1;
+
+select sum(NumTerminals) from airport 
+into @val;
+
+select @val as NumberOfAllTerminals;
+
+show character set;
+
+SHOW INDEX from db1.aircraft;

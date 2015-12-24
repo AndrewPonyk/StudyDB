@@ -5,7 +5,8 @@
  AND r2.From = r1.To;
 
 drop view v_round_trip_routes;
-
+            
 select * from v_round_trip_routes;
 
 show create view v_round_trip_routes;
+

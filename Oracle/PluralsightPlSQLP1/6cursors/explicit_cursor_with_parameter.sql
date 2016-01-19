@@ -11,3 +11,6 @@ BEGIN
   DBMS_OUTPUT.PUT_LINE(row_in_test.name);
   CLOSE cur_with_par;
 END;
+/
+
+

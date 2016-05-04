@@ -1,0 +1,246 @@
+Index: src/main/resources/db/scripts/ams_nys/2016_04_29_1002__AttachmentConfigurations_CISMNITS_20.sql
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/db/scripts/ams_nys/2016_04_29_1002__AttachmentConfigurations_CISMNITS_20.sql	(revision )
++++ src/main/resources/db/scripts/ams_nys/2016_04_29_1002__AttachmentConfigurations_CISMNITS_20.sql	(revision )
+@@ -0,0 +1,63 @@
++-- Author: Andrii Ponyk
++-- Type: Dev
++-- Jira_ID: CISMNITS-20
++
++--Rename ATT_SYSTEM back to SAVE_ATTACHMENTS_TO_WCC
++INSERT INTO SETUP_COLUMN_ID (COLUMN_ID, COLUMN_LABEL, VIEW_TYPE, TABLE_NAME, ITEM_COL_NAME, DESCR_COL_NAME, RIGHT_TO_SEE, RIGHT_TO_EDIT)
++  SELECT 'SAVE_ATTACHMENTS_TO_WCC', 'Attachments System', 'T', 'SETUP_ATT_SYSTEM', 'ATT_SYSTEM_ID', 'ATT_SYSTEM_NAME', 2, 3 FROM DUAL
++  WHERE NOT EXISTS (SELECT 1 FROM SETUP_COLUMN_ID WHERE COLUMN_ID = 'SAVE_ATTACHMENTS_TO_WCC');
++
++UPDATE WEB_WINDOWS_COLUMN SET COLUMN_ID = 'SAVE_ATTACHMENTS_TO_WCC' WHERE WINDOW_ID = 'system_adm' AND COLUMN_ID = 'ATT_SYSTEM';
++UPDATE SETUP_TABLE_COLUMNS SET COLUMN_ID = 'SAVE_ATTACHMENTS_TO_WCC' WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_ID = 'ATT_SYSTEM';
++DELETE FROM SETUP_COLUMN_ID WHERE COLUMN_ID = 'ATT_SYSTEM';
++
++--Rename ATT_URL back to IDC_URL
++INSERT INTO SETUP_COLUMN_ID (COLUMN_ID, COLUMN_LABEL, VIEW_TYPE,  RIGHT_TO_SEE, RIGHT_TO_EDIT, COMMENT_STR)
++  SELECT 'IDC_URL', 'URL of Oracle WCC Service', 'S', 2, 3,
++    'URL of Oracle WebCenter Content (WCC) service for external applications. Usually it is ''idc'' + host of Oracle Web Center Content + port 4444 (idc://XXX.XXX.XXX.XXX:4444)'
++  FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM SETUP_COLUMN_ID WHERE COLUMN_ID = 'IDC_URL');
++
++UPDATE WEB_WINDOWS_COLUMN SET COLUMN_ID = 'IDC_URL' WHERE WINDOW_ID = 'system_adm' AND COLUMN_ID = 'ATT_URL';
++UPDATE SETUP_TABLE_COLUMNS SET COLUMN_ID = 'IDC_URL' WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_ID = 'ATT_URL';
++DELETE FROM SETUP_COLUMN_ID WHERE COLUMN_ID = 'ATT_URL';
++
++--Rename ATT_FOLDER_PATH back to WCC_PARENT_FOLDER_PATH
++INSERT INTO SETUP_COLUMN_ID (COLUMN_ID, COLUMN_LABEL, VIEW_TYPE,  RIGHT_TO_SEE, RIGHT_TO_EDIT, DATA_SIZE, COMMENT_STR)
++  SELECT 'WCC_PARENT_FOLDER_PATH', 'WCC Parent Folder Path', 'S', 2, 3, 100,
++    'Oracle Web Center Content (WCC) local path to store files' FROM DUAL
++  WHERE NOT EXISTS (SELECT 1 FROM SETUP_COLUMN_ID WHERE COLUMN_ID = 'WCC_PARENT_FOLDER_PATH');
++
++UPDATE WEB_WINDOWS_COLUMN SET COLUMN_ID = 'WCC_PARENT_FOLDER_PATH' WHERE WINDOW_ID = 'system_adm' AND COLUMN_ID = 'ATT_FOLDER_PATH';
++UPDATE SETUP_TABLE_COLUMNS SET COLUMN_ID = 'WCC_PARENT_FOLDER_PATH' WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_ID = 'ATT_FOLDER_PATH';
++DELETE FROM SETUP_COLUMN_ID WHERE COLUMN_ID = 'ATT_FOLDER_PATH';
++
++--Rename ATT_PASSWORD back  to WCC_PASSWORD
++INSERT INTO SETUP_COLUMN_ID (COLUMN_ID, COLUMN_LABEL, VIEW_TYPE,  RIGHT_TO_SEE, RIGHT_TO_EDIT, COMMENT_STR)
++  SELECT 'WCC_PASSWORD', 'WCC Password', 'P', 2, 3, 'Password of the weblogic (or other server) account which is the host of Oracle WebCenter Content (WCC).' FROM DUAL
++  WHERE NOT EXISTS (SELECT 1 FROM SETUP_COLUMN_ID WHERE COLUMN_ID = 'WCC_PASSWORD');
++
++UPDATE WEB_WINDOWS_COLUMN SET COLUMN_ID = 'WCC_PASSWORD' WHERE WINDOW_ID = 'system_adm' AND COLUMN_ID = 'ATT_PASSWORD';
++UPDATE SETUP_TABLE_COLUMNS SET COLUMN_ID = 'WCC_PASSWORD' WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_ID = 'ATT_PASSWORD';
++
++DELETE FROM SETUP_COLUMN_ID WHERE COLUMN_ID = 'ATT_PASSWORD';
++--Rename ATT_USER back  to WCC_USER
++INSERT INTO SETUP_COLUMN_ID (COLUMN_ID, COLUMN_LABEL, VIEW_TYPE,  RIGHT_TO_SEE, RIGHT_TO_EDIT, DATA_SIZE, COMMENT_STR)
++  SELECT 'WCC_USER', 'WCC User', 'S', 2, 3, 100, 'Weblogic (or other server) account login name' FROM DUAL
++  WHERE NOT EXISTS (SELECT 1 FROM SETUP_COLUMN_ID WHERE COLUMN_ID = 'WCC_USER');
++
++UPDATE WEB_WINDOWS_COLUMN SET COLUMN_ID = 'WCC_USER' WHERE WINDOW_ID = 'system_adm' AND COLUMN_ID = 'ATT_USER';
++UPDATE SETUP_TABLE_COLUMNS SET COLUMN_ID = 'WCC_USER' WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_ID = 'ATT_USER';
++DELETE FROM SETUP_COLUMN_ID WHERE COLUMN_ID = 'ATT_USER';
++
++--Rename ATT_TIMEOUT back  to WCC_SOCKET_TIMEOUT
++INSERT INTO SETUP_COLUMN_ID (COLUMN_ID, COLUMN_LABEL, VIEW_TYPE,  RIGHT_TO_SEE, RIGHT_TO_EDIT)
++  SELECT 'WCC_SOCKET_TIMEOUT', 'WCC SOCKET TIMEOUT', 'R', 2, 3 FROM DUAL
++  WHERE NOT EXISTS (SELECT 1 FROM SETUP_COLUMN_ID WHERE COLUMN_ID = 'WCC_SOCKET_TIMEOUT');
++
++UPDATE WEB_WINDOWS_COLUMN SET COLUMN_ID = 'WCC_SOCKET_TIMEOUT' WHERE WINDOW_ID = 'system_adm' AND COLUMN_ID = 'ATT_TIMEOUT';
++UPDATE SETUP_TABLE_COLUMNS SET COLUMN_ID = 'WCC_SOCKET_TIMEOUT' WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_ID = 'ATT_TIMEOUT';
++DELETE FROM SETUP_COLUMN_ID WHERE COLUMN_ID = 'ATT_TIMEOUT';
++
++UPDATE WEB_WINDOWS_COLUMN SET COLUMN_ID = 'SAVE_ATTACHMENTS_TO_WCC', COLUMN_LABEL = 'Attachment System Type', CHANGE_DDDW = 'ATT_SYSTEM_ID <> 2' WHERE WINDOW_ID = 'system_adm' AND COLUMN_ID = 'SAVE_ATTACHMENTS_TO_WCC';
++
++COMMIT;
+\ No newline at end of file
+Index: Java/com/agileassetsinc/core/SystemSetup.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Java/com/agileassetsinc/core/SystemSetup.java	(revision aacf5eda5b215778b91ba7c41f613bdb5e27fc12)
++++ Java/com/agileassetsinc/core/SystemSetup.java	(revision )
+@@ -827,7 +827,7 @@
+     private void initAttachmentSystemType() {
+         int defVal = 0;
+         try {
+-            attachmentSystemType = TRDIUtils.strToint(getSystemAdmValue("ATT_SYSTEM", ""+defVal));
++            attachmentSystemType = TRDIUtils.strToint(getSystemAdmValue("SAVE_ATTACHMENTS_TO_WCC", ""+defVal));
+         }
+         catch(TRDIException e) {
+         	attachmentSystemType = defVal;
+Index: src/main/resources/db/scripts/aa_common/2016_04_29_1000__AttachmentConfigurations_CISMNITS_20.sql
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/db/scripts/aa_common/2016_04_29_1000__AttachmentConfigurations_CISMNITS_20.sql	(revision )
++++ src/main/resources/db/scripts/aa_common/2016_04_29_1000__AttachmentConfigurations_CISMNITS_20.sql	(revision )
+@@ -0,0 +1,54 @@
++-- Author: Andrii Ponyk
++-- Type: Dev
++-- Jira_ID: CISMNITS-20
++
++DECLARE
++  col_exists INTEGER;
++  col2_exists INTEGER;
++BEGIN
++  --rename existing columns
++  SELECT COUNT(*) INTO col_exists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_NAME = 'ATT_SYSTEM';
++  SELECT COUNT(*) INTO col2_exists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_NAME = 'SAVE_ATTACHMENTS_TO_WCC';
++  IF (col_exists = 1 AND col2_exists = 0) THEN
++    EXECUTE IMMEDIATE 'ALTER TABLE SYSTEM_ADM RENAME COLUMN ATT_SYSTEM TO SAVE_ATTACHMENTS_TO_WCC';
++  END IF;
++  SELECT COUNT(*) INTO col_exists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_NAME = 'ATT_URL';
++  SELECT COUNT(*) INTO col2_exists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_NAME = 'IDC_URL';
++  IF (col_exists = 1 AND col2_exists = 0) THEN
++    EXECUTE IMMEDIATE 'ALTER TABLE SYSTEM_ADM RENAME COLUMN ATT_URL TO IDC_URL';
++  END IF;
++  SELECT COUNT(*) INTO col_exists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_NAME = 'ATT_FOLDER_PATH';
++  SELECT COUNT(*) INTO col2_exists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_NAME = 'WCC_PARENT_FOLDER_PATH';
++  IF (col_exists = 1 AND col2_exists = 0) THEN
++    EXECUTE IMMEDIATE 'ALTER TABLE SYSTEM_ADM RENAME COLUMN ATT_FOLDER_PATH TO WCC_PARENT_FOLDER_PATH';
++  END IF;
++  SELECT COUNT(*) INTO col_exists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_NAME = 'ATT_PASSWORD';
++  SELECT COUNT(*) INTO col2_exists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_NAME = 'WCC_PASSWORD';
++  IF (col_exists = 1 AND col2_exists = 0) THEN
++    EXECUTE IMMEDIATE 'ALTER TABLE SYSTEM_ADM RENAME COLUMN ATT_PASSWORD TO WCC_PASSWORD';
++  END IF;
++  SELECT COUNT(*) INTO col_exists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_NAME = 'ATT_USER';
++  SELECT COUNT(*) INTO col2_exists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_NAME = 'WCC_USER';
++  IF (col_exists = 1 AND col2_exists = 0) THEN
++    EXECUTE IMMEDIATE 'ALTER TABLE SYSTEM_ADM RENAME COLUMN ATT_USER TO WCC_USER';
++  END IF;
++  SELECT COUNT(*) INTO col_exists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_NAME = 'ATT_TIMEOUT';
++  SELECT COUNT(*) INTO col2_exists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_NAME = 'WCC_SOCKET_TIMEOUT';
++  IF (col_exists = 1 AND col2_exists = 0) THEN
++    EXECUTE IMMEDIATE 'ALTER TABLE SYSTEM_ADM RENAME COLUMN ATT_TIMEOUT TO WCC_SOCKET_TIMEOUT';
++  END IF;
++
++  --add new columns
++  SELECT COUNT(*) INTO col_exists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_NAME = 'ATT_PROFILE';
++  IF (col_exists = 0) THEN
++    EXECUTE IMMEDIATE 'ALTER TABLE SYSTEM_ADM ADD ATT_PROFILE VARCHAR(100)';
++  END IF;
++  SELECT COUNT(*) INTO col_exists FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'SYSTEM_ADM' AND COLUMN_NAME = 'ATT_LIBRARY';
++  IF (col_exists = 0) THEN
++    EXECUTE IMMEDIATE 'ALTER TABLE SYSTEM_ADM ADD ATT_LIBRARY VARCHAR(100)';
++  END IF;
++
++END;
++/
++
++COMMIT;
+\ No newline at end of file
+Index: src/main/resources/db/scripts/ams_mn/2016_04_26_1001__AttachmentConfigurations_CISMNITS_20.sql
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/db/scripts/ams_mn/2016_04_26_1001__AttachmentConfigurations_CISMNITS_20.sql	(revision )
++++ src/main/resources/db/scripts/ams_mn/2016_04_26_1001__AttachmentConfigurations_CISMNITS_20.sql	(revision )
+@@ -0,0 +1,34 @@
++-- Author: Andrii Ponyk
++-- Type: Dev
++-- Jira_ID: CISMNITS-20
++
++--SAVE_ATTACHMENTS_TO_WCC
++INSERT INTO SETUP_COLUMN_ID (COLUMN_ID, COLUMN_LABEL, VIEW_TYPE, TABLE_NAME, ITEM_COL_NAME, DESCR_COL_NAME, RIGHT_TO_SEE, RIGHT_TO_EDIT)
++  SELECT 'SAVE_ATTACHMENTS_TO_WCC', 'Attachments System', 'T', 'SETUP_ATT_SYSTEM', 'ATT_SYSTEM_ID', 'ATT_SYSTEM_NAME', 2, 3 FROM DUAL
++  WHERE NOT EXISTS (SELECT 1 FROM SETUP_COLUMN_ID WHERE COLUMN_ID = 'SAVE_ATTACHMENTS_TO_WCC');
++
++--IDC_URL
++INSERT INTO SETUP_COLUMN_ID (COLUMN_ID, COLUMN_LABEL, VIEW_TYPE,  RIGHT_TO_SEE, RIGHT_TO_EDIT, COMMENT_STR)
++  SELECT 'IDC_URL', 'URL of eDOCS Service', 'S', 2, 3,
++    'URL of eDOCS service'
++  FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM SETUP_COLUMN_ID WHERE COLUMN_ID = 'IDC_URL');
++
++--WCC_PASSWORD
++INSERT INTO SETUP_COLUMN_ID (COLUMN_ID, COLUMN_LABEL, VIEW_TYPE,  RIGHT_TO_SEE, RIGHT_TO_EDIT, COMMENT_STR)
++  SELECT 'WCC_PASSWORD', 'eDOCS Password', 'P', 2, 3, 'Password of the account which is the host of eDOCS.' FROM DUAL
++  WHERE NOT EXISTS (SELECT 1 FROM SETUP_COLUMN_ID WHERE COLUMN_ID = 'WCC_PASSWORD');
++
++--WCC_USER
++INSERT INTO SETUP_COLUMN_ID (COLUMN_ID, COLUMN_LABEL, VIEW_TYPE,  RIGHT_TO_SEE, RIGHT_TO_EDIT, DATA_SIZE, COMMENT_STR)
++  SELECT 'WCC_USER', 'eDOCS User', 'S', 2, 3, 100, 'eDOCS account login name' FROM DUAL
++  WHERE NOT EXISTS (SELECT 1 FROM SETUP_COLUMN_ID WHERE COLUMN_ID = 'WCC_USER');
++
++UPDATE WEB_WINDOWS_COLUMN SET COLUMN_ID = 'SAVE_ATTACHMENTS_TO_WCC' WHERE WINDOW_ID = 'system_adm' AND OBJECT_ID = 'dw_5' AND COLUMN_ID = 'ATT_SYSTEM';
++UPDATE WEB_WINDOWS_COLUMN SET COLUMN_ID = 'IDC_URL' WHERE WINDOW_ID = 'system_adm' AND OBJECT_ID = 'dw_5' AND COLUMN_ID = 'ATT_URL';
++UPDATE WEB_WINDOWS_COLUMN SET COLUMN_ID = 'WCC_PASSWORD' WHERE WINDOW_ID = 'system_adm' AND OBJECT_ID = 'dw_5' AND COLUMN_ID = 'ATT_PASSWORD';
++UPDATE WEB_WINDOWS_COLUMN SET COLUMN_ID = 'WCC_USER' WHERE WINDOW_ID = 'system_adm' AND OBJECT_ID = 'dw_5' AND COLUMN_ID = 'ATT_USER';
++UPDATE WEB_WINDOWS_COLUMN SET COLUMN_LABEL = 'Attachment System Type', CHANGE_DDDW = 'ATT_SYSTEM_ID <> 1' WHERE WINDOW_ID = 'system_adm' AND COLUMN_ID = 'SAVE_ATTACHMENTS_TO_WCC';
++
++DELETE FROM SETUP_COLUMN_ID WHERE COLUMN_ID IN ('ATT_SYSTEM', 'ATT_URL', 'ATT_USER', 'ATT_PASSWORD');
++
++COMMIT;
+\ No newline at end of file
+Index: Java/com/agileassetsinc/core/ui/attachments/AttachmentDetails.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Java/com/agileassetsinc/core/ui/attachments/AttachmentDetails.java	(revision aacf5eda5b215778b91ba7c41f613bdb5e27fc12)
++++ Java/com/agileassetsinc/core/ui/attachments/AttachmentDetails.java	(revision )
+@@ -22,37 +22,37 @@
+     /**
+      * SQL query to select Oracle WebCenter Content settings
+      */
+-    public static final String SELECT_ORACLE_WCC_SETTINGS_SQL = "SELECT ATT_SYSTEM, ATT_URL, ATT_FOLDER_PATH, ATT_PASSWORD, ATT_USER, ATT_TIMEOUT from SYSTEM_ADM";
++    public static final String SELECT_ORACLE_WCC_SETTINGS_SQL = "SELECT SAVE_ATTACHMENTS_TO_WCC, IDC_URL, WCC_PARENT_FOLDER_PATH, WCC_PASSWORD, WCC_USER, WCC_SOCKET_TIMEOUT from SYSTEM_ADM";
+ 
+     /**
+      * Attachment service URL column name
+      */
+-    public static final String ATTACHMENT_URL = "ATT_URL";
++    public static final String ATTACHMENT_URL = "IDC_URL";
+ 
+     /**
+      * Attachment service type column name
+      */
+-    public static final String ATTACHMENT_SYSTEM_TYPE = "ATT_SYSTEM";
++    public static final String ATTACHMENT_SYSTEM_TYPE = "SAVE_ATTACHMENTS_TO_WCC";
+ 
+     /**
+      * Attachment service folder path column name
+      */
+-    public static final String ATTACHMENT_FOLDER_PATH = "ATT_FOLDER_PATH";
++    public static final String ATTACHMENT_FOLDER_PATH = "WCC_PARENT_FOLDER_PATH";
+ 
+     /**
+      * Attachment service password column name
+      */
+-    public static final String ATTACHMENT_PASSWORD = "ATT_PASSWORD";
++    public static final String ATTACHMENT_PASSWORD = "WCC_PASSWORD";
+ 
+     /**
+      * Attachment service user column name
+      */
+-    public static final String ATTACHMENT_USER = "ATT_USER";
++    public static final String ATTACHMENT_USER = "WCC_USER";
+ 
+     /**
+      * Attachment service timeout column name
+      */
+-    public static final String ATTACHMENT_TIMEOUT = "ATT_TIMEOUT";
++    public static final String ATTACHMENT_TIMEOUT = "WCC_SOCKET_TIMEOUT";
+ 
+     /**
+      * Attachment service profile column name
